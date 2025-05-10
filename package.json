@@ -8,7 +8,9 @@
   "type": "module",
   "main": "dist/index.js",
   "bin": {
-    "mcp-server-prototype": "dist/index.js"
+    "mcp-server-prototype": "dist/index.js",
+    "auth": "./path/to/script.js"
+  }
   },
   "scripts": {
     "build": "tsc",
