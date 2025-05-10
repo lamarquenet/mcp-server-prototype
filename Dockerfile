@@ -18,4 +18,4 @@ RUN npm run build
 USER node
 
 # Start the server
-CMD ["node", "build/index.js"]
+CMD ["node", "dist/index.js"]
