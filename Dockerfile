@@ -1,15 +1,15 @@
-FROM node:20-alpine
+FROM node:23-alpine
 
 WORKDIR /app
 
 # Copy package files
-COPY package*.json ./
+COPY package*.json tsconfig.json ./
+
+# Copy source so that tsconfig's include paths exist
+COPY . .
 
 # Install dependencies
 RUN npm install
-
-# Copy source code
-COPY . .
 
 # Build the application
 RUN npm run build
