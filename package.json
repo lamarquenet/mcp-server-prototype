@@ -1,7 +1,7 @@
 {
-  "name": "nico-mcp-server",
+  "name": "@lamarquenet/mcp-server-prototype",
   "version": "0.0.1",
-  "description": "MCP server for using the API",
+  "description": "MCP server for mail and calendar",
   "license": "MIT",
   "author": "Nicolas Zuain",
   "type": "module",
@@ -10,12 +10,20 @@
     "mcp-server": "dist/index.js"
   },
   "scripts": {
-    "dev": "nodemon --watch src -e ts --exec \"ts-node --esm src/server.ts\"",
-    "start": "npm run build && node dist/server.js",
-    "build": "tsc && shx chmod +x dist/*.js",
-    "watch": "tsc --watch",
-    "auth": "node dist/server.js auth"
+    "build": "tsc",
+    "startAndCompile": "npm run build && node dist/server.js",
+    "startAndCompileWatch": "npm run build && nodemon dist/server.js",
+    "startAndCompileWatchDev": "npm run build && nodemon dist/server.js --exec ts-node",
+    "startAndCompileWatchDevNoBuild": "nodemon dist/server.js --exec ts-node",
+    "start": "node dist/index.js",
+    "auth": "node dist/index.js auth",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run build"
   },
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "keywords": [
     "gmail",
     "calendar",

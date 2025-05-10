@@ -5,8 +5,8 @@ import { chatWithOpenAiTool } from "./chatGptCompletion.js";
 export const yourTools = new Map<string, any>();
 
 yourTools.set(getInfoTool.name, getInfoTool);
-yourTools.set(sayHelloTool.name, sayHelloTool);
-yourTools.set(chatWithOpenAiTool.name, chatWithOpenAiTool);
+yourTools.set(sayHelloTool.name, sayHelloTool); //to do a basic health test
+yourTools.set(chatWithOpenAiTool.name, chatWithOpenAiTool); //TODO: work in progress
 
 
 //Gmail tools
