@@ -10,7 +10,6 @@
   "bin": {
     "mcp-server-prototype": "dist/index.js",
     "auth": "node dist/index.js auth"
-  }
   },
   "scripts": {
     "build": "tsc",

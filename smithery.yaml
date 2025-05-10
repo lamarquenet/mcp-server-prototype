@@ -17,5 +17,5 @@ startCommand:
         description: Path to the stored credentials JSON file
   commandFunction:
     # A function that produces the CLI command to start the MCP on stdio.
-    # (config) => ({command:'node',args:['dist/index.js'],env:{GMAIL_OAUTH_PATH:config.gcpOauthKeysPath, GMAIL_CREDENTIALS_PATH:config.credentialsPath}})
-    {command:'node',args:['dist/index.js']}
+    |-
+    (config) => ({command:'node',args:['dist/index.js'],env:{GMAIL_OAUTH_PATH:config.gcpOauthKeysPath, GMAIL_CREDENTIALS_PATH:config.credentialsPath}})
