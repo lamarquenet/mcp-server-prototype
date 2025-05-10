@@ -9,7 +9,7 @@
   "main": "dist/index.js",
   "bin": {
     "mcp-server-prototype": "dist/index.js",
-    "auth": "./path/to/script.js"
+    "auth": "node dist/index.js auth"
   }
   },
   "scripts": {
