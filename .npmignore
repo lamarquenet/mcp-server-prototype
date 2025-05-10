@@ -35,11 +35,4 @@ coverage/
 
 # Misc
 .DS_Store
-Thumbs.db 
-
-# Project specific
-gcp-oauth.keys.json
-.calendar-mcp/
-credentials.json
-.calendar-server-credentials.json 
-mcp-config.json
+Thumbs.db
