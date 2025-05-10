@@ -12,8 +12,8 @@ import { authenticate, loadCredentials } from "./tools/your_tools/google/mail/ut
 try {
   console.log('Debug: server.ts script execution started');
 
-  await loadCredentials();
   if (process.argv[2] === 'auth') {
+          await loadCredentials();
           await authenticate();
           console.log('Authentication completed successfully');
           process.exit(0);
