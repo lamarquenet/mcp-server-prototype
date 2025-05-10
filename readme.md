@@ -25,6 +25,7 @@ A Model Context Protocol (MCP) server for Gmail integration in Claude Desktop wi
 
 ### Installing via Smithery
 
+[![smithery badge](https://smithery.ai/badge/@lamarquenet/mcp-server-prototype)](https://smithery.ai/server/@lamarquenet/mcp-server-prototype)
 To install Gmail AutoAuth for Claude Desktop automatically via [Smithery](https://smithery.ai/server/@lamarquenet/mcp-server-prototype):
 
 ```bash
