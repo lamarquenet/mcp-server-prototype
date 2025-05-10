@@ -1,13 +1,14 @@
 {
   "name": "@lamarquenet/mcp-server-prototype",
   "version": "0.0.1",
+  "private": false,
   "description": "MCP server for mail and calendar",
   "license": "MIT",
   "author": "Nicolas Zuain",
   "type": "module",
   "main": "dist/index.js",
   "bin": {
-    "mcp-server": "dist/index.js"
+    "mcp-server-prototype": "dist/index.js"
   },
   "scripts": {
     "build": "tsc",
@@ -29,6 +30,7 @@
     "calendar",
     "mcp",
     "mcp-server",
+    "mcp-server-prototype",
     "hosted-mcp",
     "cursor",
     "openai",

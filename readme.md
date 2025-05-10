@@ -60,7 +60,7 @@ npx -y @smithery/cli install @lamarquenet/mcp-server-prototype --client claude
    mv gcp-oauth.keys.json ~/.gmail-mcp/
 
    # Run authentication from anywhere
-   npx @lamarquenet/mcp-server-prototype auth
+   npx npx git+https://github.com/lamarquenet/mcp-server-prototype.git auth
    ```
 
    b. Local Authentication:
