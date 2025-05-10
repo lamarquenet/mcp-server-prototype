@@ -47,7 +47,11 @@ try {
 
   // Crear el servidor Express
   const app = express();
-  app.use(cors());
+  app.use(cors({
+    origin: "*",
+    methods: ["GET", "POST", "OPTIONS"],
+    credentials: false,
+  }));
 
   // Ruta para establecer la conexión SSE
   app.get("/sse", auth, async (req: Request, res: Response) => {

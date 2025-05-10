@@ -6,7 +6,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const schema = z.object({
-  PORT: z.string().default('5681'),
+  PORT: z.string().default('5680'),
 });
 
 let env: z.infer<typeof schema>;

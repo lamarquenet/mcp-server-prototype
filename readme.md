@@ -405,19 +405,41 @@ The server includes efficient batch processing capabilities:
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-
-## Running evals
-
-The evals package loads an mcp client that then runs the index.ts file, so there is no need to rebuild between tests. You can load environment variables by prefixing the npx command. Full documentation can be found [here](https://www.mcpevals.io/docs).
-
-```bash
-OPENAI_API_KEY=your-key  npx mcp-eval src/evals/evals.ts src/index.ts
-```
-
-## License
-
-MIT
-
 ## Support
 
 If you encounter any issues or have questions, please file an issue on the GitHub repository.
+
+
+Possible configurations:
+-------------------------------------Works on tootls that support sse like roo code and others
+"mcp-server-prototype": {
+      "type": "sse",
+      "url": "http://192.168.8.209:5680/sse?token=tokenSimple&chatGptApiKey=tokenChatGptApiKey",
+      "alwaysAllow": [
+        "say_hello",
+        "search_emails",
+        "read_email"
+      ],
+      "disabled": false
+}
+
+------------------------------------Could not make it work this way in claude or roo code, if someone know why let me know
+"mcp-server-prototype": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "supergateway",
+        "--sse",
+        "http://192.168.8.209:5680/sse?token=tokenSimple&chatGptApiKey=tokenChatGptApiKey"
+      ]
+    }
+------------------way of running a locally hosted version, needs to put in the args the location of the server file, windows location for claude
+------------------you can use the setup script to get the location of claude if you are on the same machine.
+"mcp-server-prototype": {
+      "command": "node",
+      "args": [
+        "./dist/server.js"
+      ],
+      "disabled": false,
+      "alwaysAllow": []
+    }
