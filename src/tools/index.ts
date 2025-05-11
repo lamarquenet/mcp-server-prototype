@@ -29,7 +29,7 @@ export const setupTools = (server: Server): void => {
   server.setRequestHandler(CallToolRequestSchema, async (request, extra) => {
     const tool = tools.get(request.params.name);
     if (!tool) {
-      console.error(`Tool '${request.params.name}' not found`);
+      process.stderr.write(`Tool '${request.params.name}' not found\n`);
       throw new McpError(ErrorCode.MethodNotFound, `Tool '${request.params.name}' not found`);
     }
 
@@ -44,7 +44,7 @@ export const setupTools = (server: Server): void => {
         ],
       };
     } catch (error: any) {
-      console.error("Error executing tool:", error);
+      process.stderr.write(["Error executing tool:", String(error)].join(' ') + '\n');
       throw new McpError(ErrorCode.InternalError, error.message);
     }
   });

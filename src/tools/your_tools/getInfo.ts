@@ -20,9 +20,6 @@ export const getInfoTool = {
   inputSchema: zodToJsonSchema(GetInfoSchema),
   handler: async (input: GetInfo, extra: { authInfo: AuthInfo; }) => {
     const args = GetInfoSchema.parse(input);
-    console.log("args", args);
-    console.log("extra", extra);
-    console.log("extra.authInfo", extra.authInfo);
     try {
       if (!extra.authInfo.token) {
         throw new Error("Missing authentication information");

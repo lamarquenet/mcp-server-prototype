@@ -10,12 +10,12 @@ import { Context } from "./types/global.js";
 import { authenticate, loadCredentials } from "./tools/your_tools/google/mail/utils/auth.js";
 
 try {
-  console.log('Debug: server.ts script execution started');
+  process.stderr.write('Debug: server.ts script execution started\n');
 
   if (process.argv[2] === 'auth') {
           await loadCredentials();
           await authenticate();
-          console.log('Authentication completed successfully');
+          process.stderr.write('Authentication completed successfully\n');
           process.exit(0);
   }
 
@@ -36,7 +36,7 @@ try {
 
   // Configurar las herramientas
   setupTools(server);
-  console.log('Tools are being registered...');
+  process.stderr.write('Tools are being registered...\n');
 
   const transports: {
     [sessionId: string]: {
@@ -56,7 +56,7 @@ try {
   // Ruta para establecer la conexión SSE
   app.get("/sse", auth, async (req: Request, res: Response) => {
     try {
-      console.log('Debug: Received query parameters:', req.query);
+      process.stderr.write(['Debug: Received query parameters:', req.query].join(' ') + '\n');
 
       // Crear transporte SSE
       const transport = new SSEServerTransport('/messages', res);
@@ -70,17 +70,17 @@ try {
         }
       }
       res.on("close", () => {
-        console.log(`SSE connection closed for session ${transport.sessionId}`);
-        console.log(`Reason for closure: ${res.writableEnded ? 'Client closed connection' : 'Server closed connection'}`);
+        process.stderr.write(`SSE connection closed for session ${transport.sessionId}\n`);
+        process.stderr.write(`Reason for closure: ${res.writableEnded ? 'Client closed connection' : 'Server closed connection'}\n`);
         console.trace('Connection closure stack trace');
         delete transports[transport.sessionId];
       });
 
       // Conectar el transporte al servidor
       await server.connect(transport);
-      console.log(`SSE connection established ${transport.sessionId}`);
+      process.stderr.write(`SSE connection established ${transport.sessionId}\n`);
     } catch (error) {
-      console.error("Error in SSE connection:", error);
+      process.stderr.write(["Error in SSE connection:", String(error)].join(' ') + '\n');
       if (!res.headersSent) {
         res.status(500).json({ error: `Failed to establish SSE connection ${error}` });
       }
@@ -91,10 +91,10 @@ try {
   app.post("/messages", auth, async (req: Request, res: Response) => {
     try {
       const sessionId = req.query.sessionId as string;
-      console.log(`Session messages ${sessionId}`);
+      process.stderr.write(`Session messages ${sessionId}\n`);
       const session = transports[sessionId];
       if (session) {
-        console.log(`Handling SSE message for session ${sessionId}`);
+        process.stderr.write(`Handling SSE message for session ${sessionId}\n`);
         (req as any).auth = {
           token: session?.context?.authInfo?.token,
           chatGptApiKey: process.env.CHAT_GPT_API_KEY ?? 'default-api-key',
@@ -105,7 +105,7 @@ try {
         throw new Error(`No transport found for session ${sessionId}`);
       }
     } catch (error) {
-      console.error("Error in SSE message handling:", error);
+      process.stderr.write(["Error in SSE message handling:", String(error)].join(' ') + '\n');
       if (!res.headersSent) {
         res.status(500).json({ error: `Internal Server Error ${error}` });
       }
@@ -114,17 +114,17 @@ try {
 
   // Iniciar el servidor en el puerto configurado
   app.listen(env.PORT, () => {
-    console.log(`🚀 Server is running on http://0.0.0.0:${env.PORT}`);
+    process.stderr.write(`🚀 Server is running on http://0.0.0.0:${env.PORT}\n`);
   });
 
   process.on('uncaughtException', (err) => {
-    console.error('Unhandled Exception:', err);
+    process.stderr.write(['Unhandled Exception:', String(err)].join(' ') + '\n');
   });
 
   process.on('unhandledRejection', (reason, promise) => {
-    console.error('Unhandled Rejection:', reason);
+    process.stderr.write(['Unhandled Rejection:', String(reason)].join(' ') + '\n');
   });
 
 } catch (error) {
-  console.error('Critical error during server startup:', error);
+  process.stderr.write(['Critical error during server startup:', String(error)].join(' ') + '\n');
 }

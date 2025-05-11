@@ -20,11 +20,11 @@ export async function loadCredentials() {
     const localOAuthPath = path.join(process.cwd(), "gcp-oauth.keys.json");
     if (fs.existsSync(localOAuthPath) && !fs.existsSync(OAUTH_PATH)) {
       fs.copyFileSync(localOAuthPath, OAUTH_PATH);
-      console.log("OAuth keys found in current directory, copied to global config.");
+      process.stderr.write("OAuth keys found in current directory, copied to global config.\n");
     }
 
     if (!fs.existsSync(OAUTH_PATH)) {
-      console.error("Error: OAuth keys file not found. Please place gcp-oauth.keys.json in the current directory or", CONFIG_DIR);
+      process.stderr.write(["Error: OAuth keys file not found. Please place gcp-oauth.keys.json in the current directory or", CONFIG_DIR].join(' ') + '\n');
       process.exit(1);
     }
 
@@ -32,7 +32,7 @@ export async function loadCredentials() {
     const keys = keysContent.installed || keysContent.web;
 
     if (!keys) {
-      console.error("Error: Invalid OAuth keys file format. File should contain either 'installed' or 'web' credentials.");
+      process.stderr.write("Error: Invalid OAuth keys file format. File should contain either 'installed' or 'web' credentials.\n");
       process.exit(1);
     }
 
@@ -45,7 +45,7 @@ export async function loadCredentials() {
       oauth2Client.setCredentials(credentials);
     }
   } catch (error) {
-    console.error("Error loading credentials:", error);
+    process.stderr.write(["Error loading credentials:", String(error)].join(' ') + '\n');
     process.exit(1);
   }
 }
@@ -60,7 +60,7 @@ export async function authenticate() {
       scope: ["https://www.googleapis.com/auth/gmail.modify"],
     });
 
-    console.log("Please visit this URL to authenticate:", authUrl);
+    process.stderr.write(["Please visit this URL to authenticate:", authUrl].join(' ') + '\n');
     open(authUrl);
 
     server.on("request", async (req, res) => {
@@ -79,7 +79,7 @@ export async function authenticate() {
       try {
         const { tokens } = await oauth2Client.getToken(code);
         oauth2Client.setCredentials(tokens);
-        console.log("Tokens acquired:", tokens);
+        process.stderr.write(["Tokens acquired:", JSON.stringify(tokens)].join(' ') + '\n');
         fs.writeFileSync(CREDENTIALS_PATH, JSON.stringify(tokens));
 
         res.writeHead(200);

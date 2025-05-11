@@ -14,13 +14,13 @@ let env: z.infer<typeof schema>;
 try {
   env = schema.parse(process.env);
 } catch (err) {
-  console.error("❌ Invalid environment variables:");
+  process.stderr.write("❌ Invalid environment variables:\n");
   if (err instanceof z.ZodError) {
     for (const issue of err.issues) {
-      console.error(`- ${issue.path[0]}: ${issue.message}`);
+      process.stderr.write(`- ${issue.path[0]}: ${issue.message}\n`);
     }
   } else {
-    console.error(err);
+    process.stderr.write(String(err) + '\n');
   }
   process.exit(1);
 }
