@@ -8,6 +8,7 @@ import { setupTools } from "./tools/index.js";
 import { auth } from "./middlewares/auth.js";
 import { Context } from "./types/global.js";
 import { authenticate, loadCredentials } from "./tools/your_tools/google/mail/utils/auth.js";
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 
 try {
   process.stderr.write('Debug: server.ts script execution started\n');
@@ -56,8 +57,6 @@ try {
   // Ruta para establecer la conexión SSE
   app.get("/sse", auth, async (req: Request, res: Response) => {
     try {
-      process.stderr.write(['Debug: Received query parameters:', req.query].join(' ') + '\n');
-
       // Crear transporte SSE
       const transport = new SSEServerTransport('/messages', res);
       transports[transport.sessionId] = {
@@ -125,6 +124,9 @@ try {
     process.stderr.write(['Unhandled Rejection:', String(reason)].join(' ') + '\n');
   });
 
+  //uncoment this ones if we want to use StdioServerTransport for local services like claude
+  const transport = new StdioServerTransport();
+  await server.connect(transport);
 } catch (error) {
   process.stderr.write(['Critical error during server startup:', String(error)].join(' ') + '\n');
 }
