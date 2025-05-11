@@ -25,12 +25,13 @@ try {
   process.exit(1);
 }
 
+/*This prevent me from running the auth from anywhere without creating a new package.json so better do it manually here
 const packageJsonPath = join(process.cwd(), 'package.json');
-const packageJson = JSON.parse(readFileSync(packageJsonPath, 'utf-8'));
+const packageJson = JSON.parse(readFileSync(packageJsonPath, 'utf-8'));*/
 
 export const CONFIG = {
   NAME: `MCP Example`,
-  VERSION: packageJson.version,
+  VERSION: 0.1,
 };
 
 export { env }

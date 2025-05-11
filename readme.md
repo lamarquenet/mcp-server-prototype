@@ -61,6 +61,12 @@ npx -y @smithery/cli install @lamarquenet/mcp-server-prototype --client claude
 
    # Run authentication from anywhere
    npx npx git+https://github.com/lamarquenet/mcp-server-prototype.git auth
+
+   mkdir mcp-test
+   cd mcp-test
+   npm init -y
+   npx git+https://github.com/lamarquenet/mcp-server-prototype.git auth
+
    ```
 
    b. Local Authentication:

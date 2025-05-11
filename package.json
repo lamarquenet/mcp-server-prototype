@@ -1,6 +1,6 @@
 {
   "name": "@lamarquenet/mcp-server-prototype",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "private": false,
   "description": "MCP server for mail and calendar",
   "license": "MIT",
