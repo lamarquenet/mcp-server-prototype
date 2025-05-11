@@ -18,4 +18,15 @@ startCommand:
   commandFunction:
     # A function that produces the CLI command to start the MCP on stdio.
     |-
-    (config) => ({command:'node',args:['dist/index.js'],env:{GMAIL_OAUTH_PATH:config.gcpOauthKeysPath, GMAIL_CREDENTIALS_PATH:config.credentialsPath}})
+    (config) => ({command:'node',args:['dist/index.js'],env:{GMAIL_OAUTH_PATH:config.gcpOauthKeysPath, GMAIL_CREDENTIALS_PATH:config.credentialsPath, }})
+    (config) => ({
+        "command": "node",
+        "args": [
+          "dist/index.js"
+        ],
+        "env": {
+          GMAIL_OAUTH_PATH:config.gcpOauthKeysPath,
+          GMAIL_CREDENTIALS_PATH:config.credentialsPath,
+          APi_KEY: config.API_KEY,
+        }
+      })
