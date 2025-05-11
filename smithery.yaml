@@ -8,6 +8,7 @@ startCommand:
     required:
       - gcpOauthKeysPath
       - credentialsPath
+      - API_KEY
     properties:
       gcpOauthKeysPath:
         type: string
@@ -15,6 +16,9 @@ startCommand:
       credentialsPath:
         type: string
         description: Path to the stored credentials JSON file
+      APi_KEY:
+        type: string
+        description: api key from smithery
   commandFunction:
     # A function that produces the CLI command to start the MCP on stdio.
     |-
@@ -27,6 +31,6 @@ startCommand:
         "env": {
           GMAIL_OAUTH_PATH:config.gcpOauthKeysPath,
           GMAIL_CREDENTIALS_PATH:config.credentialsPath,
-          APi_KEY: config.API_KEY,
+          API_KEY: config.API_KEY,
         }
       })
