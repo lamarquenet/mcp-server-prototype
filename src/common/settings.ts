@@ -31,7 +31,7 @@ const packageJson = JSON.parse(readFileSync(packageJsonPath, 'utf-8'));*/
 
 export const CONFIG = {
   NAME: `MCP Example`,
-  VERSION: 0.1,
+  VERSION: `0.1`,
 };
 
 export { env }
