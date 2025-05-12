@@ -420,7 +420,7 @@ Possible configurations:
 -------------------------------------Works on tootls that support sse like roo code and others
 "mcp-server-prototype": {
       "type": "sse",
-      "url": "http://192.168.8.209:5680/sse?token=tokenSimple&chatGptApiKey=tokenChatGptApiKey",
+      "url": "http://192.168.8.209:5680/sse?token=tokenSimple",
       "alwaysAllow": [
         "say_hello",
         "search_emails",
@@ -436,7 +436,7 @@ Possible configurations:
         "-y",
         "supergateway",
         "--sse",
-        "http://192.168.8.209:5680/sse?token=tokenSimple&chatGptApiKey=tokenChatGptApiKey"
+        "http://192.168.8.209:5680/sse?token=tokenSimple"
       ]
     }
 ------------------way of running a locally hosted version, needs to put in the args the location of the server file, windows location for claude
