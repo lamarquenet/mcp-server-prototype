@@ -4,5 +4,4 @@ export interface Context {
   
   export interface AuthInfo {
     token: string ;
-    chatGptApiKey: string;
   }
