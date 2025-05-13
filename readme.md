@@ -101,6 +101,39 @@ npx -y @smithery/cli install @lamarquenet/mcp-server-prototype --client claude
   }
 }
 ```
+Or use a proxy if over the network, recommended one https://www.npmjs.com/package/mcp-remote
+Install the package on the os where your claude is located and add the following config
+{
+  "mcpServers": {
+    "remote-example": {
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "http://192.168.8.20:5680/sse",
+        "--allow-http",
+      ]
+    }
+  }
+}
+//the flag --allow-http allow you to use dev servers not https
+
+Available Strategies:
+http-first (default): Tries HTTP transport first, falls back to SSE if HTTP fails with a 404 error
+sse-first: Tries SSE transport first, falls back to HTTP if SSE fails with a 405 error
+http-only: Only uses HTTP transport, fails if the server doesn't support it
+sse-only: Only uses SSE transport, fails if the server doesn't support it
+
+To use with mcp or http you can use 
+"nico-mcp-remote": {
+      "command": "npx",
+      "args": [
+        "mcp-remote", 
+        "http://192.168.8.20:5680/mcp",
+        "--allow-http",
+        "--transport",
+        "http-first"
+      ]
+    }
 
 ### Docker Support requested by el Zamarra :P
 
@@ -114,8 +147,24 @@ docker run -i --rm \
   -e GMAIL_OAUTH_PATH=/gcp-oauth.keys.json \
   -e "GMAIL_CREDENTIALS_PATH=/gmail-server/credentials.json" \
   -p 3000:3000 \
+  -p 5680:5680 \
   mcp/gmail auth
 ```
+This will run a container with port 3000 open for oauth call back auth, and the sse / mcp http transports. If you want to start it on stdio pass as param stdio on the start
+
+How to connect to the docker:
+Install https://www.npmjs.com/package/mcp-remote and add this config in claude:
+
+use:
+"nico-mcp-remote": {
+      "command": "npx",
+      "args": [
+        "mcp-remote", 
+        "http://ipofdockerUrl:5680/mcp",
+        "--allow-http"
+      ]
+    }
+
 
 2. Usage:
 ```json
@@ -444,8 +493,12 @@ Possible configurations:
 "mcp-server-prototype": {
       "command": "node",
       "args": [
-        "./dist/server.js"
+        "./dist/server.js",
+        "stdio"
       ],
+      "env":{
+        "token": "tokenClaude"
+      },
       "disabled": false,
       "alwaysAllow": []
     }

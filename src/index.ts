@@ -71,17 +71,14 @@ async function main() {
       app.use(express.json());
       // Check for existing session ID
       const sessionId = req.headers['mcp-session-id'] as string | undefined;
-      process.stderr.write(`🌐 mcp session id ${sessionId}\n`);
+      
       let transport: StreamableHTTPServerTransport;
-      process.stderr.write(`req.body ${req.body}\n`);
-      process.stderr.write(`initializerequest ${isInitializeRequest(req.body)}\n`);
 
       try {
         if (sessionId && transportStreameable[sessionId]) {
           // Reuse existing transport
-          process.stderr.write('Reuse existing transport\n');
           transport = transportStreameable[sessionId];
-        } else if (!sessionId && isInitializeRequest(req.body)) {
+        } else if (!sessionId) {
           // New initialization request
           process.stderr.write('🌐 New initialization request\n');
           transport = new StreamableHTTPServerTransport({
@@ -91,7 +88,6 @@ async function main() {
               transportStreameable[sessionId] = transport;
             }
           });
-          process.stderr.write(` transport: ${transport}\n`);
           // Clean up transport when closed
           transport.onclose = () => {
             if (transport.sessionId) {
@@ -157,7 +153,7 @@ async function main() {
 
         // 2) Now create and connect the transport
         const transport = new SSEServerTransport("/messages", res);
-        process.stderr.write(`SSE connection Handshake with seesionId ${transport.sessionId}\n`);
+  
         transports[transport.sessionId] = {
           transport,
           context: {
