@@ -3,7 +3,7 @@ import { zodToJsonSchema } from "zod-to-json-schema";
 import { AuthInfo } from "../../../../types/global.js";
 import { google } from "googleapis";
 import { createEmailMessage } from "./utils/mail.js";
-import { loadCredentials, getOAuth2Client } from "./utils/auth.js";
+import { loadCredentials, getOAuth2Client } from "../utils/auth.js";
 
 export const DraftEmailSchema = z.object({
   to: z.array(z.string()).describe("List of recipient email addresses"),

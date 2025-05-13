@@ -2,7 +2,7 @@ import { z } from "zod";
 import { zodToJsonSchema } from "zod-to-json-schema";
 import { AuthInfo } from "../../../../types/global.js";
 import { google } from "googleapis";
-import { getOAuth2Client, loadCredentials } from "./utils/auth.js";
+import { getOAuth2Client, loadCredentials } from "../utils/auth.js";
 
 export const UpdateLabelSchema = z.object({
   id: z.string().describe("ID of the label to update"),

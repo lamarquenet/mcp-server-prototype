@@ -1,13 +1,4 @@
-import { getInfoTool } from "./getInfo.js";
-import { sayHelloTool } from "./sayHello.js";
-import { chatWithOpenAiTool } from "./chatGptCompletion.js";
-
 export const yourTools = new Map<string, any>();
-
-yourTools.set(getInfoTool.name, getInfoTool);
-yourTools.set(sayHelloTool.name, sayHelloTool); //to do a basic health test
-yourTools.set(chatWithOpenAiTool.name, chatWithOpenAiTool); //TODO: work in progress
-
 
 //Gmail tools
 import { batchDeleteEmailsTool } from "./google/mail/batchDeleteEmails.js";
@@ -23,7 +14,16 @@ import { readEmailTool } from "./google/mail/readEmail.js";
 import { searchEmailsTool } from "./google/mail/searchEmails.js";
 import { sendEmailTool } from "./google/mail/sendMails.js";
 import { updateLabelTool } from "./google/mail/updateLabel.js";
+import { createEventTool } from "./google/calendar/CreateEvent.js";
+import { deleteEventTool } from "./google/calendar/DeleteEvent.js";
+import { freeBusyEventTool } from "./google/calendar/FreeBusyEvent.js";
+import { listCalendarsTool } from "./google/calendar/ListCalendars.js";
+import { listColorsTool } from "./google/calendar/ListColors.js";
+import { listEventsTool } from "./google/calendar/ListEvents.js";
+import { searchEventsTool } from "./google/calendar/SearchEvents.js";
+import { updateEventTool } from "./google/calendar/UpdateEvent.js";
 
+// mail tools
 yourTools.set(batchDeleteEmailsTool.name, batchDeleteEmailsTool);
 yourTools.set(batchModifyEmailsTool.name, batchModifyEmailsTool);
 yourTools.set(createLabelTool.name, createLabelTool);
@@ -39,4 +39,12 @@ yourTools.set(sendEmailTool.name, sendEmailTool);
 yourTools.set(updateLabelTool.name, updateLabelTool);
 
 
-// Add more tools as needed
+// calendar tools
+yourTools.set(createEventTool.name, createEventTool);
+yourTools.set(deleteEventTool.name, deleteEventTool);
+yourTools.set(freeBusyEventTool.name, freeBusyEventTool);
+yourTools.set(listCalendarsTool.name, listCalendarsTool);
+yourTools.set(listColorsTool.name, listColorsTool);
+yourTools.set(listEventsTool.name, listEventsTool);
+yourTools.set(searchEventsTool.name, searchEventsTool);
+yourTools.set(updateEventTool.name, updateEventTool);

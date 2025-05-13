@@ -2,7 +2,7 @@ import { z } from "zod";
 import { zodToJsonSchema } from "zod-to-json-schema";
 import { AuthInfo } from "../../../../types/global.js";
 import { google } from "googleapis";
-import { getOAuth2Client, loadCredentials } from "./utils/auth.js";
+import { getOAuth2Client, loadCredentials } from "../utils/auth.js";
 
 // Type definitions for Gmail API responses
 interface GmailMessagePart {
