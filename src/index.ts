@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import express, { NextFunction, Request, Response } from "express";
+import express, { Request, Response } from "express";
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import cors from "cors";
 import { SSEServerTransport } from "@modelcontextprotocol/sdk/server/sse.js";
@@ -7,10 +7,9 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import { CONFIG, env } from "./common/settings.js";
 import { setupTools } from "./tools/index.js";
 import { auth } from "./middlewares/auth.js";
-import { authenticate, loadCredentials } from "./tools/your_tools/google/mail/utils/auth.js";
+import { authenticate, loadCredentials } from "./tools/your_tools/google/utils/auth.js";
 import { Context } from "./types/global.js";
 import { StreamableHTTPServerTransport  } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
-import { isInitializeRequest } from "@modelcontextprotocol/sdk/types.js"
 import { randomUUID } from "node:crypto"
 
 async function main() {
@@ -139,18 +138,6 @@ async function main() {
     // SSE “handshake” endpoint
     app.get("/sse", auth, async (req: Request, res: Response) => {
       try {
-        // === Transport detection ===
-        const queryParam = req.query.transportType as string | undefined;
-        const acceptHeader = req.headers["accept"];
-        const transportType =
-          queryParam === "sse" || acceptHeader?.includes("text/event-stream")
-            ? "sse"
-            : "streamable";
-        
-        process.stderr.write(`🔌 Selected transport: ${transportType}\n`);
-        process.stderr.write(`🔌 Selected acceptHeader: ${acceptHeader}\n`);
-        process.stderr.write(`🔌 Selected req.query.transportType: ${req.query.transportType}\n`);
-
         // 2) Now create and connect the transport
         const transport = new SSEServerTransport("/messages", res);
   

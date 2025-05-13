@@ -2,7 +2,7 @@ import { z } from "zod";
 import { zodToJsonSchema } from "zod-to-json-schema";
 import { AuthInfo } from "../../../../types/global.js";
 import { google } from "googleapis";
-import { loadCredentials, getOAuth2Client } from "./utils/auth.js";
+import { loadCredentials, getOAuth2Client } from "../utils/auth.js";
 
 export const ListEmailLabelsSchema = z.object({}).describe("Retrieves all available Gmail labels");
 

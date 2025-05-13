@@ -57,7 +57,7 @@ export async function authenticate() {
   return new Promise<void>((resolve, reject) => {
     const authUrl = oauth2Client.generateAuthUrl({
       access_type: "offline",
-      scope: ["https://www.googleapis.com/auth/gmail.modify"],
+      scope: ["https://www.googleapis.com/auth/gmail.modify", "https://www.googleapis.com/auth/calendar"],
     });
 
     process.stderr.write(["Please visit this URL to authenticate:", authUrl].join(' ') + '\n');
